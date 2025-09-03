@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4 Colores</title>
+  </head>
+  <body>
+    <h1>4 Colores</h1>
+    <div id="azul" style="width:200px;height:200px;background:blue;display:inline-block;margin:4px;"></div>
+    <div id="rojo" style="width:200px;height:200px;background:red;display:inline-block;margin:4px;"></div>
+    <div id="verde" style="width:200px;height:200px;background:green;display:inline-block;margin:4px;"></div>
+    <div id="amarillo" style="width:200px;height:200px;background:yellow;display:inline-block;margin:4px;"></div>
+
+    <hr />
+
+    <div id="key" style="width:200px;height:200px;background:white;border:2px solid black;margin-top:8px;"></div>
+
+    <script>
+      // 3.1 y 3.2: cambiar a negro al hacer click
+      const cuadrados = ['azul', 'rojo', 'verde', 'amarillo'];
+      cuadrados.forEach((id) => {
+        const el = document.getElementById(id);
+        el.addEventListener('click', () => {
+          el.style.backgroundColor = 'black';
+        });
+      });
+
+      // 3.3: variable global con color según tecla
+      // a -> rosado, s -> naranjo, d -> celeste
+      // y actualizar el div #key
+      let colorGlobal = '';
+
+      const mapaColoresPrincipal = {
+        a: 'pink',
+        s: 'orange',
+        d: 'lightblue',
+      };
+
+      // Para q, w, e crear nuevos divs 200x200 con colores morado, gris y café
+      const mapaColoresCrear = {
+        q: 'purple',
+        w: 'gray',
+        e: 'brown', // café
+      };
+
+      const keyDiv = document.getElementById('key');
+
+      document.addEventListener('keydown', function (event) {
+        const k = event.key.toLowerCase();
+
+        if (k in mapaColoresPrincipal) {
+          colorGlobal = mapaColoresPrincipal[k];
+          keyDiv.style.backgroundColor = colorGlobal;
+          return;
+        }
+
+        if (k in mapaColoresCrear) {
+          const nuevo = document.createElement('div');
+          nuevo.style.width = '200px';
+          nuevo.style.height = '200px';
+          nuevo.style.backgroundColor = mapaColoresCrear[k];
+          nuevo.style.border = '2px solid black';
+          nuevo.style.display = 'inline-block';
+          nuevo.style.margin = '4px';
+          document.body.appendChild(nuevo);
+        }
+      });
+    </script>
+  </body>
+  </html>
+<!--Me la complique quizas mapeando los colores pero como ya se programar queria hacer algo mas desafiante
+en vez de usar el ejemplo:
+document.addEventListener('keydown', function (event) {
+if (event.key === 'a') {
+/* Cambiar a color 1 */
+} else if (event.key === 's') {
+/* Cambiar a color 2 */
+}
+})
+se hace lo mismo, solo que sin usar ifs o else ifs
+ -->
